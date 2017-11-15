@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../jquery.colorbox.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".xss").colorbox({rel: 'xss'});
+            $(".xss-prevented-with-js").colorbox({
+                rel: 'xss-prevented-with-js',
+                title: function() {
+                    var title = $(this).attr('title'); // Retrieve the value of the title title from the attribute.
+                    return $('<div>').text(title).html(); // HTML escape the title.
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Vulnerable</h1>
+    <p>
+        <a class="xss" href="../content/ohoopee1.jpg" title="User supplied string: &lt;script&gt;alert('XSSed')&lt;/script&gt;">Single encoded</a> <br />
+        <i>Click on the link and you will notice that Javascript is executed. Although the attribute is actually escaped will this be reverted when opening the image box.</i>
+    </p>
+
+    <h1>Safe</h1>
+    <p>
+        <a class="xss" href="../content/ohoopee1.jpg" title="User supplied string: &amp;lt;script&amp;gt;alert('XSSed')&amp;lt;/script&amp;gt;">Double encoded encoded</a> <br />
+        <i>Notice when hovering over the link that the title is not user friendly anymore, since it contains escaped characters.</i>
+    </p>
+    <p>
+    <p>
+        <a class="xss-prevented-with-js" href="../content/ohoopee1.jpg" title="User supplied string: &lt;script&gt;alert('XSSed')&lt;/script&gt;">Single encoded using JS to escape the malicious JS code</a> <br />
+        <i>Has no functional side effects, but since it isn't enabled by default might it happen that it is forgotten causing XSS to be possible.</i>
+    </p>
+</body>
+</html>
