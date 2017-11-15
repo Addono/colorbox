@@ -21,7 +21,7 @@
     <h1>Vulnerable</h1>
     <p>
         <a class="xss" href="../content/ohoopee1.jpg" title="User supplied string: &lt;script&gt;alert('XSSed')&lt;/script&gt;">Single encoded</a> <br />
-        <i>Click on the link and you will notice that Javascript is executed. Although the attribute is actually escaped will this be reverted when opening the image box.</i>
+        <i>Click on the link and you will notice that Javascript is executed. The code is present in the title attribute, even though it is escaped - making it HTML context safe - will the code still be executed.</i>
     </p>
 
     <h1>Safe</h1>
